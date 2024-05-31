@@ -1,0 +1,231 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body {
+  background-color: black;
+  color: white;
+}
+.container {
+  height: 100vh;
+  background-image: url('imgs/J4o.gif');
+  background-position: center;
+}
+.container .main-center {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.container .main-center .left-side {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.container .main-center .left-side .voice-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container .main-center .left-side button {
+  height: 35px;
+  width: 35px;
+  z-index: 99;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px;
+  background-color: rgb(140, 243, 243);
+  border-radius: 50%;
+  border: none;
+  margin-top: 30px;
+}
+.container .main-center .left-side .left-img{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container .main-center .left-side .left-img img{
+  width: 200px;
+}
+.container .main-center .right-side {
+  width: 20%;
+  height: 100%;
+}
+.container .main-center .right-side .right-img{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container .main-center .center {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+#speechbox {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  padding: 20px 10px;
+}
+.weather-list,
+.command-list{
+  width: 70%;
+  height: auto;
+  z-index: 88;
+  display:none;
+  flex-direction:column;
+  padding: 5px 20px;
+  box-shadow: 1px 1px 15px 1px rgb(94, 93, 93);
+  background-color:rgb(255, 255, 255);
+  color:rgb(0, 0, 0);
+  position: absolute;
+  top:200px;
+  left:13%;
+  border-radius:5px;
+}
+.jarviselist {
+  width: 98%;
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  font-size: 17px;
+  padding: 5px 8px;
+  margin-top: 5px;
+  background-color: white;
+  color: black;
+}
+.jarvisdivs{
+  width: 100%;
+}
+.userdivs{
+  width: 100%;
+}
+.userlist {
+  width: 98%;
+  display: flex;
+  align-items: end;
+  justify-content: end;
+  font-size: 17px;
+  padding: 5px 8px;
+  margin-top: 5px;
+  background-color: rgb(15, 235, 235);
+  color: black;
+}
+.mic-container{
+  width: 65px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.startvoices{
+  color: rgb(0, 0, 0);
+  animation: voicestart 1s ease-in-out infinite;
+}
+.container .main-center .main-left{
+  display: none;
+}
+
+
+@keyframes voicestart {
+  0% {
+    width: 35px;
+    height: 35px;
+  }
+  100% {
+    background-color: rgba(0, 255, 255, 0.363);
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 850px) {
+  .container .main-center .left-side .left-img img{
+    width: 150px;
+  }
+  .container .main-center .right-side .right-img img{
+    width: 200px;
+  }
+}
+
+@media (max-width: 750px) {
+  .container .main-center .left-side{
+    display: none;
+  }
+  .container .main-center .right-side {
+    display: none;
+  }
+  .container .main-center .main-left{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px 20px;
+    height: 150px;
+    background-image: url('imgs/J4o.gif');
+    background-position: center;
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+  }
+  .container .main-center .main-left .side-left .left-img img{
+    width: 130px;
+  }
+  .container .main-center .main-left .side-right .right-img img{
+    width: 130px;
+  }
+  .container .main-center .main-left .side-left .voice-container{
+    background-color: rgb(255, 255, 255);
+    position: fixed;
+    bottom: 0;
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    z-index: 99;
+    left: 0;
+  }
+  .container .main-center .main-left .side-left .voice-container button{
+    height: 35px;
+  width: 35px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px;
+  background-color: rgb(140, 243, 243);
+  border-radius: 50%;
+  border: none;
+   margin: 0;
+  }
+  .container .main-center {
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+  }
+  .container .main-center .center {
+    width: 100%;
+    height: 65%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    order: 1;
+    position: relative;
+    top: 160px;
+    bottom: 20px;
+  }
+  #speechbox{
+    width: 80%;
+    height: 100%;
+  }
+}
