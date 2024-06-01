@@ -104,12 +104,9 @@ window.onload = function () {
         let ageinyear = new Date().getFullYear() - new Date(dob).getFullYear();
         let months = new Date().getMonth() - new Date(dob).getMonth();
         if (months < 0 || (months === 0 && today.getDate() < new Date(dob).getDate())) {
-        ageinyear--;
+        ageinyear= ageinyear--;
         }
         let dates = new Date().getDate() - new Date(dob).getDate();
-        if (dates < 0) {
-          dates = 0;
-        }
         let fullage = `Your age is ${ageinyear} Years ${months} Months ${dates} Days`;
         age.textContent = fullage;
         speechvoice(fullage);
