@@ -1,16 +1,20 @@
 window.onload = function () {
+  let age_calculator = document.querySelector(".age-calculator");
+  let agebtn = document.getElementById("agebtn");
+  let age = document.getElementById("age");
+  let inputdob = document.getElementById("dob");
   let startvioce = document.querySelectorAll(".startvoice");
   let endvoice = document.querySelectorAll(".endvoice");
   let speechbox = document.getElementById("speechbox");
   let commandlist = document.getElementById("commandlist");
-  let all_weather_list = document.getElementById("weather-list")
-  let weather_list = document.getElementById("weather-list").querySelectorAll("*");
-
+  let all_weather_list = document.getElementById("weather-list");
+  let weather_list = document
+    .getElementById("weather-list")
+    .querySelectorAll("*");
 
   // calling weather api...
   async function searchWeather(city) {
-    if(city=="sawari"||city=="saudi"||city=="sorbi") city="swabi";
-    const url = `https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city=${city}`;
+    let url = `https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city=${city}`;
     const options = {
       method: "GET",
       headers: {
@@ -20,16 +24,16 @@ window.onload = function () {
     };
     let response = await fetch(url, options);
     let weatherdata = await response.json();
-    weather_list[0].textContent=`Cloud PCT: ${weatherdata.cloud_pct}`;
-    weather_list[1].textContent=`Feels Like: ${weatherdata.feels_like}`;
-    weather_list[2].textContent=`Humidity: ${weatherdata.humidity}`;
-    weather_list[3].textContent=`Max Temp: ${weatherdata.max_temp}`;
-    weather_list[4].textContent=`Min Temp: ${weatherdata.min_temp}`;
-    weather_list[5].textContent=`Sunrise: ${weatherdata.sunrise}`;
-    weather_list[6].textContent=`Sunset: ${weatherdata.sunset}`;
-    weather_list[7].textContent=`Temprature: ${weatherdata.temp}`;
-    weather_list[8].textContent=`Wind Degrees: ${weatherdata.wind_degrees}`;
-    weather_list[9].textContent=`Wind Speed: ${weatherdata.wind_speed}`;
+    weather_list[0].textContent = `Cloud PCT: ${weatherdata.cloud_pct}`;
+    weather_list[1].textContent = `Feels Like: ${weatherdata.feels_like}`;
+    weather_list[2].textContent = `Humidity: ${weatherdata.humidity}`;
+    weather_list[3].textContent = `Max Temp: ${weatherdata.max_temp}`;
+    weather_list[4].textContent = `Min Temp: ${weatherdata.min_temp}`;
+    weather_list[5].textContent = `Sunrise: ${weatherdata.sunrise}`;
+    weather_list[6].textContent = `Sunset: ${weatherdata.sunset}`;
+    weather_list[7].textContent = `Temprature: ${weatherdata.temp}`;
+    weather_list[8].textContent = `Wind Degrees: ${weatherdata.wind_degrees}`;
+    weather_list[9].textContent = `Wind Speed: ${weatherdata.wind_speed}`;
   }
 
   // voice recognition setup.............
@@ -40,30 +44,30 @@ window.onload = function () {
   recognition.onstart = function () {
     console.log("sr start...");
     recognition.continues = true;
-    startvioce.forEach(elements =>{
+    startvioce.forEach((elements) => {
       elements.classList.add("startvoices");
-    })
+    });
   };
 
   recognition.onend = function () {
     console.log("sr end...");
-    startvioce.forEach(elements =>{
+    startvioce.forEach((elements) => {
       elements.classList.remove("startvoices");
-    })
+    });
   };
 
   recognition.continues = true;
-  startvioce.forEach(elements =>{
+  startvioce.forEach((elements) => {
     elements.addEventListener("click", () => {
       recognition.start();
-    })
-  })
+    });
+  });
 
-  endvoice.forEach(elements =>{
+  endvoice.forEach((elements) => {
     elements.addEventListener("click", () => {
       recognition.stop();
-    })
-  })
+    });
+  });
 
   //voice regnition results..........
   recognition.onresult = function (event) {
@@ -73,7 +77,7 @@ window.onload = function () {
     listusermassage(transcript);
 
     if (transcript.includes("hello") || transcript.includes("hi")) {
-      speechvoice("Hello sir. How may i help you.");
+      speechvoice("Hello sir. How can i help you.");
     } else if (
       transcript.includes("open youtube") ||
       transcript.includes("open youtub")
@@ -82,7 +86,37 @@ window.onload = function () {
       window.open("https://www.youtube.com");
     } else if (transcript.includes("your name")) {
       speechvoice("My name is Siri");
-    } else if (transcript.includes("old are you")) {
+    } else if (transcript.includes("thanks")) {
+      speechvoice("You welcome sir.");
+    } else if (transcript.includes("i am fine")) {
+      speechvoice("Ok sir. How can i help you.");
+    } else if (transcript.includes("you from")) {
+      speechvoice("I am from swabi.");
+    } else if (transcript.includes("my age")||transcript.includes("open age calculator")) {
+      speechvoice("Opening Age Calculator sir.");
+      age_calculator.style.display="flex";
+      agebtn.addEventListener("click", () => {
+        let dob = inputdob.value;
+        console.log(dob);
+        let ageinyear = new Date().getFullYear() - new Date(dob).getFullYear();
+        let months = new Date().getMonth() - new Date(dob).getMonth();
+        if (months < 0) {
+          months=0
+        }
+        let dates = new Date().getDate() - new Date(dob).getDate();
+        if (dates < 0) {
+          dates=0
+        }
+        let fullage =`Your age is ${ageinyear} Years ${months} Months ${dates} Days`;
+        age.textContent = fullage;
+        speechvoice(fullage);
+      })
+    }
+    else if (transcript.includes("close age calculator")) {
+      speechvoice("Closing Age Calculator sir.");
+      age_calculator.style.display="none";
+    }
+     else if (transcript.includes("old are you")) {
       speechvoice("I created in 30 May in 2024.");
     } else if (transcript.includes("open instagram")) {
       speechvoice("opening Instagram sir.");
@@ -124,37 +158,43 @@ window.onload = function () {
       input = input.replace("search youtube", "").trim();
       input.split(" ").join("+");
       window.open(`https://www.youtube.com/results?search_query=${input}`);
-    } else if (transcript.includes("search weather")&&transcript.includes("city")) {
+    } else if (
+      transcript.includes("search weather") &&
+      transcript.includes("city")
+    ) {
       speechvoice("Searching weather please wait.");
-      let city =transcript;
-      let fined_index=city.indexOf("city")
-      city=city.slice(fined_index+4,)
-      Weatherapi(city)
+      let city = transcript;
+      let fined_index = city.indexOf("city");
+      city = city.slice(fined_index + 4);
+      Weatherapi(city);
       async function Weatherapi(city) {
         const url = `https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city=${city}`;
         const options = {
           method: "GET",
           headers: {
-            "X-RapidAPI-Key": "a8a828df03msh863899cf1ba614ap137aafjsn90a5d1a8c059",
+            "X-RapidAPI-Key":
+              "a8a828df03msh863899cf1ba614ap137aafjsn90a5d1a8c059",
             "X-RapidAPI-Host": "weather-by-api-ninjas.p.rapidapi.com",
           },
         };
         let response = await fetch(url, options);
         let weatherdata = await response.json();
-        speechvoice(`${city} temprature is ${weatherdata.temp}`)
+        speechvoice(`${city} temprature is ${weatherdata.temp}`);
       }
-    } else if (transcript.includes("open weather list")&&transcript.includes("city")) {
+    } else if (
+      transcript.includes("open weather list") &&
+      transcript.includes("city")
+    ) {
       speechvoice("opening weather list please wait.");
-      let city =transcript;
-      let fined_index=city.indexOf("city")
-      city=city.slice(fined_index+4,)
-      searchWeather(city)
-      all_weather_list.style.display="flex"
+      let city = transcript;
+      let fined_index = city.indexOf("city");
+      city = city.slice(fined_index + 4);
+      searchWeather(city);
+      all_weather_list.style.display = "flex";
     } else if (transcript.includes("close weather list")) {
       speechvoice("Closing weather list.");
-      all_weather_list.style.display="none"
-    }
-     else {
+      all_weather_list.style.display = "none";
+    } else {
       speechvoice("Sorry sir I don't understand your speech.");
     }
   };

@@ -76,14 +76,15 @@ body {
   overflow-y: scroll;
   padding: 20px 10px;
 }
+.age-calculator,
 .weather-list,
 .command-list{
   width: 70%;
   height: auto;
   z-index: 88;
-  display:none;
+  display: none;
   flex-direction:column;
-  padding: 5px 20px;
+  padding: 10px 20px;
   box-shadow: 1px 1px 15px 1px rgb(94, 93, 93);
   background-color:rgb(255, 255, 255);
   color:rgb(0, 0, 0);
@@ -91,6 +92,33 @@ body {
   top:200px;
   left:13%;
   border-radius:5px;
+}
+.age-calculator .input-field{
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.age-calculator .input-field input{
+  border-radius: 5px;
+  border: none;
+  margin-right: 10px;
+  font-size: large;
+  outline: none;
+}
+.age-calculator .input-field button{
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgb(0, 102, 255);
+  color: white;
+  margin-left: 10px;
+  font-size: large;
+}
+.age-calculator .output-field{
+  margin-top: 10px;
+  font-size: large;
+  font-weight: bold;
 }
 .jarviselist {
   width: 98%;
