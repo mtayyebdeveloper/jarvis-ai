@@ -12,7 +12,28 @@ window.onload = function () {
     .getElementById("weather-list")
     .querySelectorAll("*");
 
-  // calling weather api...
+  // calling whatsapp api......................
+  // async function searchwhatsapp(number) {
+  //   const url = `https://whatsapp-data1.p.rapidapi.com/number/${number}`;
+  //   const options = {
+  //     method: "GET",
+  //     headers: {
+  //       "X-RapidAPI-Key": "a8a828df03msh863899cf1ba614ap137aafjsn90a5d1a8c059",
+  //       "X-RapidAPI-Host": "whatsapp-data1.p.rapidapi.com",
+  //     },
+  //   };
+
+  //   try {
+  //     const response = await fetch(url, options);
+  //     const result = await response.json();
+  //     console.log(result);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+  // searchwhatsapp("923193555605");
+
+  // calling weather api.......................
   async function searchWeather(city) {
     let url = `https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city=${city}`;
     const options = {
@@ -86,12 +107,15 @@ window.onload = function () {
       window.open("https://www.youtube.com");
     } else if (transcript.includes("your name")) {
       speechvoice("My name is Siri");
-    } else if (transcript.includes("thanks")) {
+    } else if (transcript.includes("thanks") || transcript.includes("nice")) {
       speechvoice("You welcome sir.");
     } else if (transcript.includes("i am fine")) {
       speechvoice("Ok sir. How can i help you.");
     } else if (transcript.includes("you from")) {
       speechvoice("I am from swabi.");
+    } else if (transcript.includes("open whatsapp")) {
+      speechvoice("opening whatsapp sir");
+      window.open("https://web.whatsapp.com/");
     } else if (
       transcript.includes("my age") ||
       transcript.includes("open age calculator")
@@ -100,13 +124,34 @@ window.onload = function () {
       age_calculator.style.display = "flex";
       agebtn.addEventListener("click", () => {
         let dob = inputdob.value;
-        let today=new Date();
-        let years = today.getFullYear() - new Date(dob).getFullYear();
-        let months = today.getMonth() - new Date(dob).getMonth();
-        let dates = today.getDate() - new Date(dob).getDate();
+        let today = new Date();
+        let mydob = new Date(dob);
+        let years;
+        let months;
+        let dates;
+        years = today.getFullYear() - mydob.getFullYear();
+        months = today.getMonth() - mydob.getMonth();
+        if (months < 0) {
+          years -= 1;
+          months = JSON.stringify(months);
+          months = months.replace("-", "");
+          months = JSON.parse(months);
+          months = 12 - months;
+        }
+        dates = today.getDate() - mydob.getDate();
+        if (dates < 0) {
+          months -= 1;
+          dates = JSON.stringify(dates);
+          dates = dates.replace("-", "");
+          dates = JSON.parse(dates);
+          dates = 30 - dates;
+        }
         let fullage = `Your age is ${years} Years ${months} Months ${dates} Days`;
         age.textContent = fullage;
         speechvoice(fullage);
+        if (months == 0 && dates == 0) {
+          speechvoice("Happy birthday to you. sir");
+        }
       });
     } else if (transcript.includes("close age calculator")) {
       speechvoice("Closing Age Calculator sir.");
@@ -222,11 +267,4 @@ window.onload = function () {
     divs = divs.innerHTML = li;
     speechbox.appendChild(divs);
   }
-
-  // let tayyeb ="my name is m tayyeb and i am a web developer."
-  // let indexis =tayyeb.indexOf("tayyeb")
-  // // console.log(tayyeb.indexOf);
-  // // tayyeb.split("")
-  // tayyeb=tayyeb.slice(indexis+6,)
-  // console.log(tayyeb);
 };
