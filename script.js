@@ -4,12 +4,12 @@ window.onload = function () {
   let speechbox = document.getElementById("speechbox");
   let commandlist = document.getElementById("commandlist");
   let all_weather_list = document.getElementById("weather-list")
-  let weather_list = document.getElementById("weather-list").querySelectorAll("*")
-  console.log(weather_list[4]);
+  let weather_list = document.getElementById("weather-list").querySelectorAll("*");
 
 
   // calling weather api...
   async function searchWeather(city) {
+    if(city=="sawari"||city=="saudi"||city=="sorbi") city="swabi";
     const url = `https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city=${city}`;
     const options = {
       method: "GET",
