@@ -100,11 +100,11 @@ window.onload = function () {
       age_calculator.style.display = "flex";
       agebtn.addEventListener("click", () => {
         let dob = inputdob.value;
-        console.log(dob);
+        let today=new Date();
         let ageinyear = new Date().getFullYear() - new Date(dob).getFullYear();
         let months = new Date().getMonth() - new Date(dob).getMonth();
-        if (months < 0) {
-          months = 0;
+        if (months < 0 || (months === 0 && today.getDate() < new Date(dob).getDate())) {
+        ageinyear--;
         }
         let dates = new Date().getDate() - new Date(dob).getDate();
         if (dates < 0) {
