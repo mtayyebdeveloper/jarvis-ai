@@ -101,13 +101,10 @@ window.onload = function () {
       agebtn.addEventListener("click", () => {
         let dob = inputdob.value;
         let today=new Date();
-        let ageinyear = new Date().getFullYear() - new Date(dob).getFullYear();
-        let months = new Date().getMonth() - new Date(dob).getMonth();
-        if (months < 0 || (months === 0 && today.getDate() < new Date(dob).getDate())) {
-        ageinyear= ageinyear--;
-        }
-        let dates = new Date().getDate() - new Date(dob).getDate();
-        let fullage = `Your age is ${ageinyear} Years ${months} Months ${dates} Days`;
+        let years = today.getFullYear() - new Date(dob).getFullYear();
+        let months = today.getMonth() - new Date(dob).getMonth();
+        let dates = today.getDate() - new Date(dob).getDate();
+        let fullage = `Your age is ${years} Years ${months} Months ${dates} Days`;
         age.textContent = fullage;
         speechvoice(fullage);
       });
