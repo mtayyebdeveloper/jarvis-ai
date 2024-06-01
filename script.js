@@ -86,10 +86,7 @@ window.onload = function () {
       window.open("https://www.youtube.com");
     } else if (transcript.includes("your name")) {
       speechvoice("My name is Siri");
-    } else if (
-      transcript.includes("thanks") ||
-      transcript.includes("thank you")
-    ) {
+    } else if (transcript.includes("thanks")) {
       speechvoice("You welcome sir.");
     } else if (transcript.includes("i am fine")) {
       speechvoice("Ok sir. How can i help you.");
