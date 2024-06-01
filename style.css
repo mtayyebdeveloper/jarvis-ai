@@ -97,7 +97,6 @@ body {
   margin-top: 10px;
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
 }
 .age-calculator .input-field input{
   border-radius: 5px;
@@ -186,6 +185,16 @@ body {
 }
 
 @media (max-width: 750px) {
+  .age-calculator .input-field{
+    flex-direction:column;
+  }
+  .age-calculator .input-field input{
+    margin:0;
+  }
+  .age-calculator .input-field button{
+    margin-left:0;
+    margin-top:10px;
+  }
   .container .main-center .left-side{
     display: none;
   }
