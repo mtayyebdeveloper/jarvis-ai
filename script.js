@@ -86,37 +86,41 @@ window.onload = function () {
       window.open("https://www.youtube.com");
     } else if (transcript.includes("your name")) {
       speechvoice("My name is Siri");
-    } else if (transcript.includes("thanks")||transcript.includes("thank")) {
+    } else if (
+      transcript.includes("thanks") ||
+      transcript.includes("thank you")
+    ) {
       speechvoice("You welcome sir.");
     } else if (transcript.includes("i am fine")) {
       speechvoice("Ok sir. How can i help you.");
     } else if (transcript.includes("you from")) {
       speechvoice("I am from swabi.");
-    } else if (transcript.includes("my age")||transcript.includes("open age calculator")) {
+    } else if (
+      transcript.includes("my age") ||
+      transcript.includes("open age calculator")
+    ) {
       speechvoice("Opening Age Calculator sir.");
-      age_calculator.style.display="flex";
+      age_calculator.style.display = "flex";
       agebtn.addEventListener("click", () => {
         let dob = inputdob.value;
         console.log(dob);
         let ageinyear = new Date().getFullYear() - new Date(dob).getFullYear();
         let months = new Date().getMonth() - new Date(dob).getMonth();
         if (months < 0) {
-          months=0
+          months = 0;
         }
         let dates = new Date().getDate() - new Date(dob).getDate();
         if (dates < 0) {
-          dates=0
+          dates = 0;
         }
-        let fullage =`Your age is ${ageinyear} Years ${months} Months ${dates} Days`;
+        let fullage = `Your age is ${ageinyear} Years ${months} Months ${dates} Days`;
         age.textContent = fullage;
         speechvoice(fullage);
-      })
-    }
-    else if (transcript.includes("close age calculator")) {
+      });
+    } else if (transcript.includes("close age calculator")) {
       speechvoice("Closing Age Calculator sir.");
-      age_calculator.style.display="none";
-    }
-     else if (transcript.includes("old are you")) {
+      age_calculator.style.display = "none";
+    } else if (transcript.includes("old are you")) {
       speechvoice("I created in 30 May in 2024.");
     } else if (transcript.includes("open instagram")) {
       speechvoice("opening Instagram sir.");
