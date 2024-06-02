@@ -76,6 +76,116 @@ body {
   overflow-y: scroll;
   padding: 20px 10px;
 }
+.news-list{
+  border-radius: 10px;
+  display: flex;
+  padding: 10px;
+  flex-direction: column;
+  width: 72%;
+  height: 80vh;
+  z-index: 70;
+  position: absolute;
+  box-shadow: 1px 1px 15px 1px rgb(94, 93, 93);
+  top:50px;
+  left: 13%;
+  background-color: rgb(255, 255, 255);
+  color: black;
+}
+.news-list .search-news{
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  justify-content: center;
+  padding: 10px 0;
+  font-size: large;
+  flex-wrap: wrap;
+  gap: 30px;
+  background-color: rgb(35, 35, 218);
+}
+.news-list .search-news .select-catagory,
+.news-list .search-news .select-country{
+  display: flex;
+  flex-direction: column;
+}
+.news-list .search-news button{
+  padding: 6px 20px;
+  margin-top: 3px;
+  font-size: large;
+  border-radius: 5px;
+  border: none;
+  background-color: rgb(255, 255, 255);
+  outline: none;
+}
+.news-list .search-news button:hover{
+  background-color: rgb(9, 241, 87);
+  color: white;
+  transition: all 0.5s ease;
+}
+.news-list .search-news select{
+  padding: 5px 20px;
+  font-size: large;
+  margin-top: 3px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+}
+.news-list .search-news label{
+  color: white;
+  font-weight: bold;
+}
+#news{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+  font-size: large;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  gap: 20px;
+}
+#news .card{
+  width: 30%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  box-shadow: 1px 1px 15px 1px rgb(94, 93, 93);
+  background-color: rgb(255, 255, 255);
+  color: black;
+}
+#news .card img{
+  width: 100%;
+  height: 180px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+#news .card .body{
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+#news .card .body .title{
+  font-size: 18px;
+  font-weight: bold;
+}
+#news .card .body .content{
+  font-size: large;
+  margin-top: 10px;
+}
+#news .card .body .url{
+  font-size: 16px;
+  margin-top: 5px;
+  color: blue;
+}
+#news .card .body .footer{
+  display: flex;
+  margin-top: 10px;
+  color: rgb(16, 16, 151);
+  flex-direction: row;
+  font-size: 14px;
+  justify-content: space-between;
+}
 .age-calculator,
 .weather-list,
 .command-list{
@@ -175,6 +285,18 @@ body {
   }
 }
 
+@media (min-width: 1400px) {
+  #news .card{
+    width: 300px;
+  }
+}
+
+@media (max-width: 1100px) {
+  #news .card{
+    width: 300px;
+  }
+}
+
 @media (max-width: 850px) {
   .container .main-center .left-side .left-img img{
     width: 150px;
@@ -185,6 +307,10 @@ body {
 }
 
 @media (max-width: 750px) {
+  .news-list{
+    z-index: 100;
+    height: 70vh;
+  }
   .age-calculator .input-field{
     flex-direction:column;
   }
@@ -264,5 +390,27 @@ body {
   #speechbox{
     width: 80%;
     height: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .news-list .search-news{
+    flex-wrap: nowrap;
+    align-items: start;
+    flex-direction: column;
+    justify-content: start;
+    font-size: 15px;
+    padding:10px;
+    gap: 10px;
+  }
+  .news-list .search-news button,
+  .news-list .search-news select{
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 400px) {
+  #news .card{
+    width: 98%;
   }
 }

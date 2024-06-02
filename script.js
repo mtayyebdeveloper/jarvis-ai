@@ -7,6 +7,13 @@ window.onload = function () {
   let endvoice = document.querySelectorAll(".endvoice");
   let speechbox = document.getElementById("speechbox");
   let commandlist = document.getElementById("commandlist");
+
+  let news_list = document.getElementById("news-list");
+  let news_country = document.getElementById("country");
+  let news_catagory = document.getElementById("catagory");
+  let all_news_list = document.getElementById("news");
+  let news_search_btn = document.getElementById("searchbtn");
+
   let all_weather_list = document.getElementById("weather-list");
   let weather_list = document
     .getElementById("weather-list")
@@ -32,6 +39,41 @@ window.onload = function () {
   //   }
   // }
   // searchwhatsapp("923193555605");
+
+  // calling news api.......................
+  async function newapi(country, catagory) {
+    let allNews = "";
+    let response = await fetch(
+      `https://newsapi.org/v2/top-headlines?country=${country}&category=${catagory}&apiKey=553cf41bf1614e7eb0b2c0f36e740540`
+    );
+    let data = await response.json();
+    data.articles.map((item, index) => {
+      console.log(item);
+      item.content=JSON.stringify(item.content).replace('"',"")
+      return (allNews += `
+      <div class="card" key=${index}>
+        <img src="${item.urlToImage==null?"https://cdn.pixabay.com/photo/2018/05/31/15/06/see-no-evil-3444212_1280.jpg":item.urlToImage}" alt="img" />
+          <div class="body">
+            <div class="title">${item.title.length > 50 ? item.title.slice(0, 50) + "..." : item.title}</div>
+            <div class="content">${item.content.length>100?item.content.slice(0,100)+"...":item.content}</div>
+            <div class="url"><a href="${item.url}" target="_blank">Read More</a></div>
+            <div class="footer">
+            <div class="time">${item.publishedAt}</div>
+            <div class="auther">${item.author}</div>
+        </div>
+      </div>
+    </div>`);
+    });
+    all_news_list.innerHTML = allNews;
+  }
+
+  news_search_btn.addEventListener("click", () => {
+    if (news_country.value != "" && news_catagory.value != "") {
+      newapi(news_country.value, news_catagory.value);
+    } else {
+      alert("please select country and catagory in news list");
+    }
+  });
 
   // calling weather api.......................
   async function searchWeather(city) {
@@ -113,6 +155,20 @@ window.onload = function () {
       speechvoice("Ok sir. How can i help you.");
     } else if (transcript.includes("you from")) {
       speechvoice("I am from swabi.");
+    } else if (transcript.includes("open whatsapp")) {
+    } else if (
+      transcript.includes("open news") ||
+      transcript.includes("open news list")
+    ) {
+      speechvoice("opening news sir");
+      news_list.style.display = "flex";
+    } else if (transcript.includes("open whatsapp")) {
+    } else if (
+      transcript.includes("close news") ||
+      transcript.includes("close news list")
+    ) {
+      speechvoice("Closing news sir");
+      news_list.style.display = "none";
     } else if (transcript.includes("open whatsapp")) {
       speechvoice("opening whatsapp sir");
       window.open("https://web.whatsapp.com/");
