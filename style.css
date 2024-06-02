@@ -78,7 +78,7 @@ body {
 }
 .news-list{
   border-radius: 10px;
-  display: flex;
+  display: none;
   padding: 10px;
   flex-direction: column;
   width: 72%;
