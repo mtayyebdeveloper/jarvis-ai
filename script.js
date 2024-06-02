@@ -7,7 +7,7 @@ window.onload = function () {
   let endvoice = document.querySelectorAll(".endvoice");
   let speechbox = document.getElementById("speechbox");
   let commandlist = document.getElementById("commandlist");
-
+  let music = document.getElementById("music");
   let news_list = document.getElementById("news-list");
   let news_country = document.getElementById("country");
   let news_catagory = document.getElementById("catagory");
@@ -49,14 +49,28 @@ window.onload = function () {
     let data = await response.json();
     data.articles.map((item, index) => {
       console.log(item);
-      item.content=JSON.stringify(item.content).replace('"',"")
+      item.content = JSON.stringify(item.content).replace('"', "");
       return (allNews += `
       <div class="card" key=${index}>
-        <img src="${item.urlToImage==null?"https://cdn.pixabay.com/photo/2018/05/31/15/06/see-no-evil-3444212_1280.jpg":item.urlToImage}" alt="img" />
+        <img src="${
+          item.urlToImage == null
+            ? "https://cdn.pixabay.com/photo/2018/05/31/15/06/see-no-evil-3444212_1280.jpg"
+            : item.urlToImage
+        }" alt="img" />
           <div class="body">
-            <div class="title">${item.title.length > 50 ? item.title.slice(0, 50) + "..." : item.title}</div>
-            <div class="content">${item.content.length>100?item.content.slice(0,100)+"...":item.content}</div>
-            <div class="url"><a href="${item.url}" target="_blank">Read More</a></div>
+            <div class="title">${
+              item.title.length > 50
+                ? item.title.slice(0, 50) + "..."
+                : item.title
+            }</div>
+            <div class="content">${
+              item.content.length > 100
+                ? item.content.slice(0, 100) + "..."
+                : item.content
+            }</div>
+            <div class="url"><a href="${
+              item.url
+            }" target="_blank">Read More</a></div>
             <div class="footer">
             <div class="time">${item.publishedAt}</div>
             <div class="auther">${item.author}</div>
@@ -67,11 +81,12 @@ window.onload = function () {
     all_news_list.innerHTML = allNews;
   }
 
+  // search news by country and catagory..................
   news_search_btn.addEventListener("click", () => {
     if (news_country.value != "" && news_catagory.value != "") {
       newapi(news_country.value, news_catagory.value);
     } else {
-      alert("please select country and catagory in news list");
+      speechvoice("please select country and catagory in news list");
     }
   });
 
@@ -98,6 +113,199 @@ window.onload = function () {
     weather_list[8].textContent = `Wind Degrees: ${weatherdata.wind_degrees}`;
     weather_list[9].textContent = `Wind Speed: ${weatherdata.wind_speed}`;
   }
+
+  // search weather by only city name. singal weather data................
+  async function Weatherapi(city) {
+    const url = `https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city=${city}`;
+    const options = {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Key": "a8a828df03msh863899cf1ba614ap137aafjsn90a5d1a8c059",
+        "X-RapidAPI-Host": "weather-by-api-ninjas.p.rapidapi.com",
+      },
+    };
+    let response = await fetch(url, options);
+    let weatherdata = await response.json();
+    speechvoice(`${city} temprature is ${weatherdata.temp}`);
+  }
+
+  // age calculator..................
+  function calculateAge() {
+    agebtn.addEventListener("click", () => {
+      let dob = inputdob.value;
+      let today = new Date();
+      let mydob = new Date(dob);
+      let years;
+      let months;
+      let dates;
+      years = today.getFullYear() - mydob.getFullYear();
+      months = today.getMonth() - mydob.getMonth();
+      if (months < 0) {
+        years -= 1;
+        months = JSON.stringify(months);
+        months = months.replace("-", "");
+        months = JSON.parse(months);
+        months = 12 - months;
+      }
+      dates = today.getDate() - mydob.getDate();
+      if (dates < 0) {
+        months -= 1;
+        dates = JSON.stringify(dates);
+        dates = dates.replace("-", "");
+        dates = JSON.parse(dates);
+        dates = 30 - dates;
+      }
+      let fullage = `Your age is ${years} Years ${months} Months ${dates} Days`;
+      age.textContent = fullage;
+      speechvoice(fullage);
+      if (months == 0 && dates == 0) {
+        speechvoice("Happy birthday to you. sir");
+      }
+    });
+  }
+
+  // calling music api....................
+  // let musicstart = false;
+  let musicplay = () => {
+    // musicstart = false;
+    music.play();
+  };
+
+  let musicstop = () => {
+    // musicstart = true;
+    music.pause();
+  };
+
+  let musicPlay = (btns) => {
+    if (btns=="play") {
+      musicplay();
+    } else if(btns=="stop") {
+      musicstop();
+    }
+  };
+
+  let allsong = [
+    {
+      songnames:
+        "audeos/geceler_song_dj.geceler_song_dj_remix.geceler_kapkara_günler_her_anim_original_song_dj_remix..(360p).mp3",
+    },
+    {
+      songnames: "audeos/Khayala_Tovuzlu_-_Derdim_2020_(Darkness_at_night)(240p).mp3",
+    },
+    {
+      songnames:
+        "audeos/KARAN KHAN with RAHMAN BABA poetry  کرن خان  ما د خدای لپاره يار .mp3ليدلی نه دی",
+    },
+    {
+      songnames:
+        "audeos/KHKOLI_KHKOLI_DA_SWABI__Pashto_HD_Film__BADMASHI_DA_KHYALA_KAWA_song__Arbaz_Khan_&_Jiya_Butt(128k).mp3",
+    },
+    {
+      songnames: "audeos/dj music.mp3",
+    },
+    {
+      songnames: "audeos/banjara.mp3",
+    },
+    {
+      songnames: "audeos/dunya da gam.mp3",
+    },
+    {
+      songnames: "audeos/bom degy bom.mp3",
+    },
+    {
+      songnames: "audeos/dil ko karar.mp3",
+    },
+    {
+      songnames: "audeos/Arbix remix.mp3",
+    },
+    {
+      songnames: "audeos/chor dyaa.mp3",
+    },
+    {
+      songnames: "audeos/February 22, 2023.mp3",
+    },
+    {
+      songnames:
+        "audeos/Free_Adventure_Background_Music_for_Travel_Vlog_YouTube_Videos_No_Copyright_Royalty_Free(128k).mp3",
+    },
+    {
+      songnames:
+        "audeos/Laung_Laachi_Title_Song_Mannat_Noor__Ammy_Virk,_Neeru_Bajwa,Amberdeep__Latest_Punjabi_Movie_2018(128k).mp3",
+    },
+    {
+      songnames:
+        "audeos/Main_Tera_Hero__Galat_Baat_Hai_Full_Video_Song__Varun_Dhawan,_Ileana_D'Cruz,_Nargis_Fakhri(128k).mp3",
+    },
+    {
+      songnames:
+        "audeos/Mere_Mehboob_Qayamat_Hogi__Sad_Songs__Heart_Touching_Love_Story__Aaj_Ruswa_Teri_Galiyon_Mein(128k).mp3",
+    },
+    {
+      songnames:
+        "audeos/Mujhko_Barsaat_Bana_Lo_Full_Song_(Audio)_Junooniyat__Pulkit_Samrat,_Yami_Gautam__T-Series(240p).mp3",
+    },
+    {
+      songnames:
+        "audeos/Nazia_Iqbal_&_Shahsawar_Pashto_Songs_2018__Pashto_music_1080p_music_video(128k).mp3",
+    },
+    {
+      songnames:
+        "audeos/Night_in_Dubai_❌_Arabic_❌_Remix_❌_Song_2021_❌_Bass_Bosted_(ALL_Music_MIX)(360p)_mp3.mp3",
+    },
+    {
+      songnames: "audeos/No Love   Slowed+Reverb   AP Bass Boosted.mp3",
+    },
+    {
+      songnames:
+        "audeos/Pashto_HD_Film_Zandan_New_Song_-_CHARSYAN_by_Wisal(128k).mp3",
+    },
+    {
+      songnames: "audeos/Pashto_saaz_(All_TV)(360p).mp3",
+    },
+    {
+      songnames: "audeos/qarara rasha.mp3",
+    },
+    {
+      songnames: "audeos/Saanson Ko (LYRICS) - Arijit Singh I  SubhamMix Lyrics.mp3",
+    },
+    {
+      songnames: "audeos/Sanam_Teri_Kasam_+_Lirik(48k).mp3",
+    },
+    {
+      songnames: "audeos/Randall_-_Wahran_(_remix_)(48k).mp3",
+    },
+    {
+      songnames:
+        "audeos/Pashto_songs_2020__Shah_Farooq_And_Nazia_Iqbal__Shrang_Warka_Bangro__song___پشتو_music(128k).mp3",
+    },
+    {
+      songnames:
+        "audeos/TERI_MERI_LYRICS___SHREYA_GHOSHAL,_RAHAT_FATEH_ALI_KHAN__SALMAN_K_,_KAREENA_K(240p)_mp3.mp3",
+    },
+    {
+      songnames: "audeos/Yara_Taar_Aghe_Kali_Ta_Ma_Raza,,,(128k).mp3",
+    },
+    {
+      songnames: "audeos/yelili_yelila_song(360p)_mp3.mp3",
+    },
+  ];
+  
+  let loadsong = (allsong) => {
+    music.src = allsong.songnames;
+  };
+  
+  songindex = 0;
+  let nextsongbtn = () => {
+    songindex = (songindex + 1) % allsong.length;
+    loadsong(allsong[songindex]);
+    musicplay("play");
+  };
+  
+  let backsongbtn = () => {
+    songindex = (songindex - 1 + allsong.length) % allsong.length;
+    loadsong(allsong[songindex]);
+    musicplay("play");
+  };
 
   // voice recognition setup.............
   let speechrecognition =
@@ -178,37 +386,8 @@ window.onload = function () {
     ) {
       speechvoice("Opening Age Calculator sir.");
       age_calculator.style.display = "flex";
-      agebtn.addEventListener("click", () => {
-        let dob = inputdob.value;
-        let today = new Date();
-        let mydob = new Date(dob);
-        let years;
-        let months;
-        let dates;
-        years = today.getFullYear() - mydob.getFullYear();
-        months = today.getMonth() - mydob.getMonth();
-        if (months < 0) {
-          years -= 1;
-          months = JSON.stringify(months);
-          months = months.replace("-", "");
-          months = JSON.parse(months);
-          months = 12 - months;
-        }
-        dates = today.getDate() - mydob.getDate();
-        if (dates < 0) {
-          months -= 1;
-          dates = JSON.stringify(dates);
-          dates = dates.replace("-", "");
-          dates = JSON.parse(dates);
-          dates = 30 - dates;
-        }
-        let fullage = `Your age is ${years} Years ${months} Months ${dates} Days`;
-        age.textContent = fullage;
-        speechvoice(fullage);
-        if (months == 0 && dates == 0) {
-          speechvoice("Happy birthday to you. sir");
-        }
-      });
+      // dsfhdsjf age....
+      calculateAge();
     } else if (transcript.includes("close age calculator")) {
       speechvoice("Closing Age Calculator sir.");
       age_calculator.style.display = "none";
@@ -231,7 +410,21 @@ window.onload = function () {
       speechvoice("I have been made by Muhammad Tayyeb.");
     } else if (transcript.includes("muhammad tayyab")) {
       speechvoice("Muhammad Tayyeb is web developer.");
-    } else if (transcript.includes("how are you")) {
+    } else if (transcript.includes("play music")) {
+      speechvoice("playing music sir");
+      musicPlay("play");
+    }
+     else if (transcript.includes("stop music")) {
+      speechvoice("stopping music sir");
+      musicPlay("stop");
+    }else if (transcript.includes("next music")) {
+      speechvoice("playing next music sir");
+      nextsongbtn();
+    }else if (transcript.includes("previous music")) {
+      speechvoice("playing previous music sir");
+      backsongbtn();
+    }
+     else if (transcript.includes("how are you")) {
       speechvoice("I am fine sir. how are you too.");
     } else if (transcript.includes("stop")) {
       speechvoice("ok sir.");
@@ -263,20 +456,6 @@ window.onload = function () {
       let fined_index = city.indexOf("city");
       city = city.slice(fined_index + 4);
       Weatherapi(city);
-      async function Weatherapi(city) {
-        const url = `https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city=${city}`;
-        const options = {
-          method: "GET",
-          headers: {
-            "X-RapidAPI-Key":
-              "a8a828df03msh863899cf1ba614ap137aafjsn90a5d1a8c059",
-            "X-RapidAPI-Host": "weather-by-api-ninjas.p.rapidapi.com",
-          },
-        };
-        let response = await fetch(url, options);
-        let weatherdata = await response.json();
-        speechvoice(`${city} temprature is ${weatherdata.temp}`);
-      }
     } else if (
       transcript.includes("open weather list") &&
       transcript.includes("city")
