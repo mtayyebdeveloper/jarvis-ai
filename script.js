@@ -6,6 +6,7 @@ window.onload = function () {
   let startvioce = document.querySelectorAll(".startvoice");
   let endvoice = document.querySelectorAll(".endvoice");
   let speechbox = document.getElementById("speechbox");
+  let consoleOutput = document.getElementById("consolelist");
   let commandlist = document.getElementById("commandlist");
   let music = document.getElementById("music");
   let news_list = document.getElementById("news-list");
@@ -39,6 +40,41 @@ window.onload = function () {
   //   }
   // }
   // searchwhatsapp("923193555605");
+
+  // calling console............................
+const originalLog = console.log;
+const originalError = console.error;
+const originalWarn = console.warn;
+
+// Function to append logs to the div
+function appendToConsoleOutput(type, args) {
+    const message = args.map(arg => (typeof arg === 'object' ? JSON.stringify(arg) : String(arg))).join(' ');
+    const logItem = document.createElement('div');
+    logItem.textContent = `[${type.toUpperCase()}] ${message}`;
+    consoleOutput.appendChild(logItem);
+}
+
+// Override console.log
+console.log = function(...args) {
+    appendToConsoleOutput('log', args);
+    originalLog.apply(console, args);
+};
+
+// Override console.error
+console.error = function(...args) {
+    appendToConsoleOutput('error', args);
+    originalError.apply(console, args);
+};
+
+// Override console.warn
+console.warn = function(...args) {
+    appendToConsoleOutput('warn', args);
+    originalWarn.apply(console, args);
+};
+// Capture global errors
+window.onerror = function(message, source, lineno, colno, error) {
+    appendToConsoleOutput('error', [message, 'at', source, 'line', lineno, 'column', colno, 'stack:', error.stack]);
+};
 
   // calling news api.......................
   async function newapi(country, catagory) {
@@ -361,7 +397,16 @@ window.onload = function () {
       speechvoice("Ok sir. How can i help you.");
     } else if (transcript.includes("you from")) {
       speechvoice("I am from swabi.");
-    } else if (transcript.includes("open whatsapp")) {
+    } else if (transcript.includes("open console")) {
+      speechvoice("opening console sir.");
+      consoleOutput.style.display = "flex";
+      appendToConsoleOutput();
+    } else if (transcript.includes("close console")) {
+      speechvoice("closing console sir.");
+      consoleOutput.style.display = "none";
+      appendToConsoleOutput();
+    }
+     else if (transcript.includes("open whatsapp")) {
     } else if (
       transcript.includes("open news") ||
       transcript.includes("open news list")

@@ -186,6 +186,7 @@ body {
   font-size: 14px;
   justify-content: space-between;
 }
+.console-list,
 .age-calculator,
 .weather-list,
 .command-list{
@@ -203,6 +204,7 @@ body {
   left:13%;
   border-radius:5px;
 }
+.console-list,
 .command-list{
   overflow-y: scroll;
   top: 50px;
@@ -312,10 +314,8 @@ body {
 }
 
 @media (max-width: 750px) {
-  .news-list{
-    z-index: 100;
-    height: 65vh;
-  }
+  .console-list,
+  .news-list,
   .command-list{
     z-index: 100;
     height: 65vh;
