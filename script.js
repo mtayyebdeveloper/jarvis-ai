@@ -83,6 +83,7 @@ window.onerror = function(message, source, lineno, colno, error) {
       `https://newsapi.org/v2/top-headlines?country=${country}&category=${catagory}&apiKey=553cf41bf1614e7eb0b2c0f36e740540`
     );
     let data = await response.json();
+    console.log(data);
     data.articles.map((item, index) => {
       console.log(item);
       item.content = JSON.stringify(item.content).replace('"', "");
