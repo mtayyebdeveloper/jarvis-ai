@@ -177,9 +177,9 @@ window.onload = function () {
   };
 
   let musicPlay = (btns) => {
-    if (btns=="play") {
+    if (btns == "play") {
       musicplay();
-    } else if(btns=="stop") {
+    } else if (btns == "stop") {
       musicstop();
     }
   };
@@ -190,11 +190,8 @@ window.onload = function () {
         "audeos/geceler_song_dj.geceler_song_dj_remix.geceler_kapkara_günler_her_anim_original_song_dj_remix..(360p).mp3",
     },
     {
-      songnames: "audeos/Khayala_Tovuzlu_-_Derdim_2020_(Darkness_at_night)(240p).mp3",
-    },
-    {
       songnames:
-        "audeos/KARAN KHAN with RAHMAN BABA poetry  کرن خان  ما د خدای لپاره يار .mp3ليدلی نه دی",
+        "audeos/Khayala_Tovuzlu_-_Derdim_2020_(Darkness_at_night)(240p).mp3",
     },
     {
       songnames:
@@ -266,7 +263,8 @@ window.onload = function () {
       songnames: "audeos/qarara rasha.mp3",
     },
     {
-      songnames: "audeos/Saanson Ko (LYRICS) - Arijit Singh I  SubhamMix Lyrics.mp3",
+      songnames:
+        "audeos/Saanson Ko (LYRICS) - Arijit Singh I  SubhamMix Lyrics.mp3",
     },
     {
       songnames: "audeos/Sanam_Teri_Kasam_+_Lirik(48k).mp3",
@@ -289,18 +287,18 @@ window.onload = function () {
       songnames: "audeos/yelili_yelila_song(360p)_mp3.mp3",
     },
   ];
-  
+
   let loadsong = (allsong) => {
     music.src = allsong.songnames;
   };
-  
+
   songindex = 0;
   let nextsongbtn = () => {
     songindex = (songindex + 1) % allsong.length;
     loadsong(allsong[songindex]);
     musicplay("play");
   };
-  
+
   let backsongbtn = () => {
     songindex = (songindex - 1 + allsong.length) % allsong.length;
     loadsong(allsong[songindex]);
@@ -413,18 +411,16 @@ window.onload = function () {
     } else if (transcript.includes("play music")) {
       speechvoice("playing music sir");
       musicPlay("play");
-    }
-     else if (transcript.includes("stop music")) {
+    } else if (transcript.includes("stop music")) {
       speechvoice("stopping music sir");
       musicPlay("stop");
-    }else if (transcript.includes("next music")) {
+    } else if (transcript.includes("next music")) {
       speechvoice("playing next music sir");
       nextsongbtn();
-    }else if (transcript.includes("previous music")) {
+    } else if (transcript.includes("previous music")) {
       speechvoice("playing previous music sir");
       backsongbtn();
-    }
-     else if (transcript.includes("how are you")) {
+    } else if (transcript.includes("how are you")) {
       speechvoice("I am fine sir. how are you too.");
     } else if (transcript.includes("stop")) {
       speechvoice("ok sir.");
