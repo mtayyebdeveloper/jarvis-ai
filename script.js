@@ -7,6 +7,7 @@ window.onload = function () {
   let age = document.getElementById("age");
   let inputdob = document.getElementById("dob");
   let startvioce = document.querySelectorAll(".startvoice");
+  let startvioceimg = document.querySelectorAll(".startvoiceimg");
   let endvoice = document.querySelectorAll(".endvoice");
   let speechbox = document.getElementById("speechbox");
   let consoleOutput = document.getElementById("consolelist");
@@ -381,7 +382,11 @@ window.onload = function () {
 
   recognition.onstart = function () {
     console.log("sr start...");
+    speechvoice("Listening...");
     recognition.continues = true;
+    // startvioceimg.forEach((elements) => {
+    //   elements.classList.add("startvoicesimg");
+    // })
     startvioce.forEach((elements) => {
       elements.classList.add("startvoices");
     });
@@ -389,6 +394,10 @@ window.onload = function () {
 
   recognition.onend = function () {
     console.log("sr end...");
+    speechvoice("End...");
+    // startvioceimg.forEach((elements) => {
+    //   elements.classList.remove("startvoicesimg");
+    // })
     startvioce.forEach((elements) => {
       elements.classList.remove("startvoices");
     });
@@ -396,6 +405,11 @@ window.onload = function () {
 
   recognition.continues = true;
   startvioce.forEach((elements) => {
+    elements.addEventListener("click", () => {
+      recognition.start();
+    });
+  });
+  startvioceimg.forEach((elements) => {
     elements.addEventListener("click", () => {
       recognition.start();
     });

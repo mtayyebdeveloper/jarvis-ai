@@ -286,21 +286,30 @@ body {
 .container .main-center .main-left{
   display: none;
 }
+/* .startvoicesimg{
+  animation: voicestartimg 2s linear infinite;
+} */
 .startvoices{
   color: rgb(0, 0, 0);
-  animation: voicestart 1s ease-in-out infinite;
+  animation: voicestart 1s linear infinite;
 }
-@keyframes voicestart {
+/* @keyframes voicestartimg {
   0% {
-    /* width: 35px;
-    height: 35px; */
     transform: rotate(0deg);
   }
   100% {
-    /* background-color: rgba(0, 255, 255, 0.363);
-    width: 60px;
-    height: 60px; */
     transform: rotate(360deg);
+  }
+} */
+@keyframes voicestart {
+  0% {
+    width: 35px;
+    height: 35px;
+  }
+  100% {
+    background-color: rgba(0, 255, 255, 0.363);
+    width: 60px;
+    height: 60px;
   }
 }
 
