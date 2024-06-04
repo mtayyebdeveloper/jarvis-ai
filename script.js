@@ -379,11 +379,11 @@ window.onload = function () {
   let speechrecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
   let recognition = new speechrecognition();
-
+  
   recognition.onstart = function () {
     console.log("sr start...");
-    speechvoice("Listening...");
-    recognition.continues = true;
+    // recognition.continuous = true;
+    // speechvoice("Listening...");
     // startvioceimg.forEach((elements) => {
     //   elements.classList.add("startvoicesimg");
     // })
@@ -394,7 +394,7 @@ window.onload = function () {
 
   recognition.onend = function () {
     console.log("sr end...");
-    speechvoice("End...");
+    // speechvoice("End...");
     // startvioceimg.forEach((elements) => {
     //   elements.classList.remove("startvoicesimg");
     // })
@@ -403,7 +403,6 @@ window.onload = function () {
     });
   };
 
-  recognition.continues = true;
   startvioce.forEach((elements) => {
     elements.addEventListener("click", () => {
       recognition.start();
@@ -421,6 +420,8 @@ window.onload = function () {
     });
   });
 
+  let all_tabs =[];
+
   //voice regnition results..........
   recognition.onresult = function (event) {
     console.log(event.results[0][0].transcript);
@@ -435,7 +436,8 @@ window.onload = function () {
       transcript.includes("open youtub")
     ) {
       speechvoice("opening youtube sir");
-      window.open("https://www.youtube.com");
+      let url = window.open("https://www.youtube.com");
+      all_tabs.push(url);
     } else if (transcript.includes("your name")) {
       speechvoice("My name is Siri");
     } else if (transcript.includes("thanks") || transcript.includes("nice")) {
@@ -452,14 +454,12 @@ window.onload = function () {
       speechvoice("closing console sir.");
       consoleOutput.style.display = "none";
       appendToConsoleOutput();
-    } else if (transcript.includes("open whatsapp")) {
     } else if (
       transcript.includes("open news") ||
       transcript.includes("open news list")
     ) {
       speechvoice("opening news sir");
       news_list.style.display = "flex";
-    } else if (transcript.includes("open whatsapp")) {
     } else if (
       transcript.includes("close news") ||
       transcript.includes("close news list")
@@ -468,7 +468,8 @@ window.onload = function () {
       news_list.style.display = "none";
     } else if (transcript.includes("open whatsapp")) {
       speechvoice("opening whatsapp sir");
-      window.open("https://web.whatsapp.com/");
+      let url = window.open("https://web.whatsapp.com/");
+      all_tabs.push(url);
     } else if (
       transcript.includes("my age") ||
       transcript.includes("open age calculator")
@@ -498,22 +499,24 @@ window.onload = function () {
     }
      else if (transcript.includes("open instagram")) {
       speechvoice("opening Instagram sir.");
-      let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      if (isMobile) {
-        let url =
-          "intent://instagram.com/#Intent;scheme=https;package=com.instagram.android;end";
-        window.location.replace(url);
-      } else {
-        window.location.replace("https://www.instagram.com");
-      }
+      let url = window.open("https://www.instagram.com/");
+      all_tabs.push(url);
     } else if (transcript.includes("open facebook")) {
       speechvoice("opening Facebook sir.");
-      window.open("https://www.facebook.com");
+      let url = window.open("https://www.facebook.com");
+      all_tabs.push(url);
     } else if (transcript.includes("developer name")) {
       speechvoice("I have been made by Muhammad Tayyeb.");
     } else if (transcript.includes("muhammad tayyab")) {
       speechvoice("Muhammad Tayyeb is web developer.");
-    } else if (transcript.includes("play music")) {
+    } else if (transcript.includes("close all tabs")) {
+      speechvoice("closing all tabs sir");
+      console.log(all_tabs);
+      all_tabs.forEach((tab) => {
+        tab.close();
+      })
+    }
+     else if (transcript.includes("play music")) {
       speechvoice("playing music sir");
       musicPlay("play");
     } else if (transcript.includes("stop music")) {
@@ -541,13 +544,15 @@ window.onload = function () {
       let input = transcript;
       input = input.replace("search google", "").trim();
       input.split(" ").join("+");
-      window.open(`https://www.google.com/search?q=${input}`);
+      let url = window.open(`https://www.google.com/search?q=${input}`);
+      all_tabs.push(url);
     } else if (transcript.includes("search youtube")) {
       speechvoice("Searching please wait sir");
       let input = transcript;
       input = input.replace("search youtube", "").trim();
       input.split(" ").join("+");
-      window.open(`https://www.youtube.com/results?search_query=${input}`);
+      let url = window.open(`https://www.youtube.com/results?search_query=${input}`);
+      all_tabs.push(url);
     } else if (
       transcript.includes("search weather") &&
       transcript.includes("city")
