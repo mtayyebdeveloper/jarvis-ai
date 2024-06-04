@@ -549,9 +549,9 @@ window.onload = function () {
     } else if (transcript.includes("search bing")|| transcript.includes("search being")) {
       speechvoice("Searching please wait sir");
       let input = transcript;
-      if(input.includes("search bing"){
+      if(transcript.includes("search bing"){
         input = input.replace("search bing", "").trim();
-      }else if(input.includes("search being"){
+      }else if(transcript.includes("search being"){
         input = input.replace("search being", "").trim();
       }
       input.split(" ").join("+");
