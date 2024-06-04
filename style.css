@@ -55,11 +55,23 @@ body {
 .container .main-center .right-side {
   width: 20%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.container .main-center .right-side .right-img{
+.container .main-center .right-side .bottom{
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.container .main-center .right-side .top{
+  padding: 20px 0 0 40px;
+  font-size: x-large;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 10px;
 }
 .container .main-center .center {
   width: 60%;
@@ -308,8 +320,8 @@ body {
   .container .main-center .left-side .left-img img{
     width: 150px;
   }
-  .container .main-center .right-side .right-img img{
-    width: 200px;
+  .container .main-center .right-side .top{
+    font-size: 17px;
   }
 }
 
@@ -352,8 +364,14 @@ body {
   .container .main-center .main-left .side-left .left-img img{
     width: 130px;
   }
-  .container .main-center .main-left .side-right .right-img img{
-    width: 130px;
+  .container .main-center .main-left .side-right .top{
+    margin: 0 10px 0 0;
+  font-size: large;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 10px;
   }
   .container .main-center .main-left .side-left .voice-container{
     background-color: rgb(255, 255, 255);

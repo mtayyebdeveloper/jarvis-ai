@@ -1,6 +1,9 @@
 window.onload = function () {
   let age_calculator = document.querySelector(".age-calculator");
   let agebtn = document.getElementById("agebtn");
+  let mytime = document.querySelectorAll(".time");
+  let online = document.querySelectorAll(".online");
+  let mybattry = document.querySelectorAll(".battry");
   let age = document.getElementById("age");
   let inputdob = document.getElementById("dob");
   let startvioce = document.querySelectorAll(".startvoice");
@@ -14,67 +17,96 @@ window.onload = function () {
   let news_catagory = document.getElementById("catagory");
   let all_news_list = document.getElementById("news");
   let news_search_btn = document.getElementById("searchbtn");
-
   let all_weather_list = document.getElementById("weather-list");
   let weather_list = document
     .getElementById("weather-list")
     .querySelectorAll("*");
 
-  // calling whatsapp api......................
-  // async function searchwhatsapp(number) {
-  //   const url = `https://whatsapp-data1.p.rapidapi.com/number/${number}`;
-  //   const options = {
-  //     method: "GET",
-  //     headers: {
-  //       "X-RapidAPI-Key": "a8a828df03msh863899cf1ba614ap137aafjsn90a5d1a8c059",
-  //       "X-RapidAPI-Host": "whatsapp-data1.p.rapidapi.com",
-  //     },
-  //   };
+  // time function....................
+  mytime.forEach((time) => {
+    setInterval(() => {
+      time.innerHTML = `<i class="fa-solid fa-clock" style="margin-right: 5px;"></i> ${new Date().toLocaleTimeString()}`;
+    }, 1000);
+  })
 
-  //   try {
-  //     const response = await fetch(url, options);
-  //     const result = await response.json();
-  //     console.log(result);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-  // searchwhatsapp("923193555605");
+  // battry function....................
+  setInterval(() => {
+    let battery = navigator.getBattery();
+    battery.then((data) => {
+      let level = Math.round(data.level * 100);
+      mybattry.forEach((battry) => {
+        if (level < 20) {
+          battry.innerHTML = `<i class="fa-solid fa-battery-quarter" style="margin-right: 5px;"></i> ${level}%`;
+        } else if (level < 50) {
+          battry.innerHTML = `<i class="fa-solid fa-battery-half" style="margin-right: 5px;"></i> ${level}%`;
+        } else if (level < 80) {
+          battry.innerHTML = `<i class="fa-solid fa-battery-three-quarters" style="margin-right: 5px;"></i> ${level}%`;
+        } else {
+          battry.innerHTML = `<i class="fa-solid fa-battery-full" style="margin-right: 5px;"></i> ${level}%`;
+        }
+      })
+    });
+  }, 1000);
+
+  // online function....................
+  online.forEach((online) => {
+    setInterval(() => {
+      if (navigator.onLine) {
+        online.innerHTML = `<i class="fa-solid fa-wifi" style="margin-right: 5px;"></i> Online`;
+      } else {
+        online.innerHTML = `<i class="fa-solid fa-wifi-slash" style="margin-right: 5px;"></i> Offline`;
+      }
+    }, 1000);
+  })
 
   // calling console............................
-const originalLog = console.log;
-const originalError = console.error;
-const originalWarn = console.warn;
+  const originalLog = console.log;
+  const originalError = console.error;
+  const originalWarn = console.warn;
 
-// Function to append logs to the div
-function appendToConsoleOutput(type, args) {
-    const message = args.map(arg => (typeof arg === 'object' ? JSON.stringify(arg) : String(arg))).join(' ');
-    const logItem = document.createElement('div');
+  // Function to append logs to the div
+  function appendToConsoleOutput(type, args) {
+    const message = args
+      .map((arg) =>
+        typeof arg === "object" ? JSON.stringify(arg) : String(arg)
+      )
+      .join(" ");
+    const logItem = document.createElement("div");
     logItem.textContent = `[${type.toUpperCase()}] ${message}`;
     consoleOutput.appendChild(logItem);
-}
+  }
 
-// Override console.log
-console.log = function(...args) {
-    appendToConsoleOutput('log', args);
+  // Override console.log
+  console.log = function (...args) {
+    appendToConsoleOutput("log", args);
     originalLog.apply(console, args);
-};
+  };
 
-// Override console.error
-console.error = function(...args) {
-    appendToConsoleOutput('error', args);
+  // Override console.error
+  console.error = function (...args) {
+    appendToConsoleOutput("error", args);
     originalError.apply(console, args);
-};
+  };
 
-// Override console.warn
-console.warn = function(...args) {
-    appendToConsoleOutput('warn', args);
+  // Override console.warn
+  console.warn = function (...args) {
+    appendToConsoleOutput("warn", args);
     originalWarn.apply(console, args);
-};
-// Capture global errors
-window.onerror = function(message, source, lineno, colno, error) {
-    appendToConsoleOutput('error', [message, 'at', source, 'line', lineno, 'column', colno, 'stack:', error.stack]);
-};
+  };
+  // Capture global errors
+  window.onerror = function (message, source, lineno, colno, error) {
+    appendToConsoleOutput("error", [
+      message,
+      "at",
+      source,
+      "line",
+      lineno,
+      "column",
+      colno,
+      "stack:",
+      error.stack,
+    ]);
+  };
 
   // calling news api.......................
   async function newapi(country, catagory) {
@@ -406,8 +438,7 @@ window.onerror = function(message, source, lineno, colno, error) {
       speechvoice("closing console sir.");
       consoleOutput.style.display = "none";
       appendToConsoleOutput();
-    }
-     else if (transcript.includes("open whatsapp")) {
+    } else if (transcript.includes("open whatsapp")) {
     } else if (
       transcript.includes("open news") ||
       transcript.includes("open news list")
@@ -430,14 +461,28 @@ window.onerror = function(message, source, lineno, colno, error) {
     ) {
       speechvoice("Opening Age Calculator sir.");
       age_calculator.style.display = "flex";
-      // dsfhdsjf age....
       calculateAge();
     } else if (transcript.includes("close age calculator")) {
       speechvoice("Closing Age Calculator sir.");
       age_calculator.style.display = "none";
     } else if (transcript.includes("old are you")) {
       speechvoice("I created in 30 May in 2024.");
-    } else if (transcript.includes("open instagram")) {
+    } else if (
+      transcript.includes("what is the time") ||
+      transcript.includes("time")
+    ) {
+      speechvoice("It is " + new Date().toLocaleTimeString());
+    } else if (
+      transcript.includes("are you online") ||
+      transcript.includes("are you there")
+    ) {
+      if (window.navigator.onLine) {
+        speechvoice("Yes sir. How can i help you.");
+      } else {
+        speechvoice("No sir. I am offline.");
+      }
+    }
+     else if (transcript.includes("open instagram")) {
       speechvoice("opening Instagram sir.");
       let isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
       if (isMobile) {
