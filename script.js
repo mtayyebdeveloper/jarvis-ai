@@ -382,16 +382,16 @@ window.onload = function () {
   recognition.onstart = function () {
     console.log("sr start...");
     recognition.continues = true;
-    // startvioce.forEach((elements) => {
-    //   elements.classList.add("startvoices");
-    // });
+    startvioce.forEach((elements) => {
+      elements.classList.add("startvoices");
+    });
   };
 
   recognition.onend = function () {
     console.log("sr end...");
-    // startvioce.forEach((elements) => {
-    //   elements.classList.remove("startvoices");
-    // });
+    startvioce.forEach((elements) => {
+      elements.classList.remove("startvoices");
+    });
   };
 
   recognition.continues = true;
