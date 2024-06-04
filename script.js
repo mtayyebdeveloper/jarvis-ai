@@ -546,14 +546,10 @@ window.onload = function () {
       input.split(" ").join("+");
       let url = window.open(`https://www.google.com/search?q=${input}`);
       all_tabs.push(url);
-    } else if (transcript.includes("search bing")|| transcript.includes("search being")) {
+    } else if (transcript.includes("search being")) {
       speechvoice("Searching please wait sir");
       let input = transcript;
-      if(transcript.includes("search bing"){
-        input = input.replace("search bing", "").trim();
-      }else if(transcript.includes("search being"){
-        input = input.replace("search being", "").trim();
-      }
+      input = input.replace("search being", "").trim();
       input.split(" ").join("+");
       let url = window.open(`https://www.bing.com/search?q=${input}`);
       all_tabs.push(url);
