@@ -382,16 +382,16 @@ window.onload = function () {
   recognition.onstart = function () {
     console.log("sr start...");
     recognition.continues = true;
-    startvioce.forEach((elements) => {
-      elements.classList.add("startvoices");
-    });
+    // startvioce.forEach((elements) => {
+    //   elements.classList.add("startvoices");
+    // });
   };
 
   recognition.onend = function () {
     console.log("sr end...");
-    startvioce.forEach((elements) => {
-      elements.classList.remove("startvoices");
-    });
+    // startvioce.forEach((elements) => {
+    //   elements.classList.remove("startvoices");
+    // });
   };
 
   recognition.continues = true;
@@ -471,7 +471,7 @@ window.onload = function () {
       transcript.includes("what is the time") ||
       transcript.includes("time")
     ) {
-      speechvoice("It is " + new Date().toLocaleTimeString());
+      speechvoice("It is " + mytime[1].textContent);
     } else if (
       transcript.includes("are you online") ||
       transcript.includes("are you there")
