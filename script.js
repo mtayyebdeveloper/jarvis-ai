@@ -546,7 +546,15 @@ window.onload = function () {
       input.split(" ").join("+");
       let url = window.open(`https://www.google.com/search?q=${input}`);
       all_tabs.push(url);
-    } else if (transcript.includes("search youtube")) {
+    } else if (transcript.includes("search bing")) {
+      speechvoice("Searching please wait sir");
+      let input = transcript;
+      input = input.replace("search bing", "").trim();
+      input.split(" ").join("+");
+      let url = window.open(`https://www.bing.com/search?q=${input}`);
+      all_tabs.push(url);
+    }
+     else if (transcript.includes("search youtube")) {
       speechvoice("Searching please wait sir");
       let input = transcript;
       input = input.replace("search youtube", "").trim();
